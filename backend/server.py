@@ -3,13 +3,13 @@ from flask_cors import CORS
 
 import asyncio
 
-from app.scrapers.flipkart import (
-    scrape_flipkart
-)
+from app.scrapers.flipkart import scrape_flipkart
+from app.scrapers.flipkart_search import search_flipkart
 
-from app.scrapers.flipkart_search import (
-    search_flipkart
-)
+from app.scrapers.amazon import scrape_amazon
+from app.scrapers.amazon_search import search_amazon
+
+from app.comparison import compare_prices
 
 app = Flask(__name__)
 
@@ -20,8 +20,7 @@ CORS(app)
 def home():
 
     return {
-        "message":
-        "Marchander Running"
+        "message": "Marchander Running"
     }
 
 
@@ -30,43 +29,60 @@ def home():
     methods=["POST"]
 )
 def search():
+    try:
+        data = request.get_json()
+        query = data["query"]
+        print(f"\nSearching: {query}")
 
-    data = request.get_json()
+        # Flipkart
+        flipkart_product = None
+        try:
+            flipkart_url = asyncio.run(search_flipkart(query))
+            print("Flipkart URL:", flipkart_url)
+            if flipkart_url:
+                flipkart_product = scrape_flipkart(flipkart_url)
+        except Exception as e:
+            print("Flipkart Error:", e)
+            flipkart_product = {
+                "store": "Flipkart",
+                "title": "Unavailable",
+                "price": None,
+                "currency": "INR",
+                "availability": "Unavailable",
+            }
 
-    query = data["query"]
+        # Amazon
+        amazon_product = None
+        try:
+            amazon_url = asyncio.run(search_amazon(query))
+            print("Amazon URL:", amazon_url)
+            if amazon_url:
+                amazon_product = scrape_amazon(amazon_url)
+        except Exception as e:
+            print("Amazon Error:", e)
+            amazon_product = {
+                "store": "Amazon",
+                "title": "Unavailable",
+                "price": None,
+                "currency": "INR",
+                "availability": "Unavailable",
+            }
 
-    print(
-        "Searching:",
-        query
-    )
-
-    product_url = asyncio.run(
-        search_flipkart(query)
-    )
-
-    print(
-        "URL:",
-        product_url
-    )
-
-    if not product_url:
+        # Comparison
+        comparison = None
+        try:
+            comparison = compare_prices(flipkart_product, amazon_product)
+        except Exception:
+            comparison = None
 
         return jsonify({
-            "error":
-            "Product not found"
+            "flipkart": flipkart_product,
+            "amazon": amazon_product,
+            "comparison": comparison,
         })
-
-    product = scrape_flipkart(
-        product_url
-    )
-
-    print(
-        "Product:",
-        product
-    )
-
-    return jsonify(product)
-
+    except Exception as e:
+        print("Search Error:", e)
+        return jsonify({"error": "Search failed"}), 500
 
 if __name__ == "__main__":
 
@@ -74,3 +90,11 @@ if __name__ == "__main__":
         debug=True,
         port=5000
     )
+
+    try:
+
+        loop = asyncio.get_event_loop()
+        loop.run_forever()
+    except KeyboardInterrupt:
+
+        pass 

@@ -13,12 +13,21 @@ def scrape_amazon(url):
 
         page = browser.new_page()
 
+        page.set_extra_http_headers({
+    "Accept-Language": "en-IN,en;q=0.9"
+})
+        
+        browser = p.chromium.launch(
+    headless=False,
+    slow_mo=100
+)
+
         page.goto(
             url,
-            wait_until="domcontentloaded"
-        )
-
-        page.wait_for_timeout(5000)
+            wait_until="commit",
+            timeout=60000
+    )
+        page.wait_for_timeout(3000)
 
         html = page.content()
 

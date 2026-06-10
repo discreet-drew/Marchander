@@ -1,6 +1,6 @@
 from playwright.async_api import (
     async_playwright
-)
+) #type: ignore
 
 async def search_amazon(
     query
