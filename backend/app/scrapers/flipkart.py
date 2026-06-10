@@ -49,3 +49,33 @@ def scrape_flipkart(url):
                 pass
 
         return None
+    
+    availability = "Unknown"
+
+    if (
+        "InStock"
+        in html
+    ):
+        availability = (
+            "In Stock"
+        )
+
+    elif (
+        "OutOfStock"
+        in html
+    ):
+        availability = (
+            "Out of Stock"
+        )
+
+        return {
+            "store": "Flipkart",
+
+            "title": title,
+
+            "price": price,
+
+            "currency": "INR",
+
+            "availability": availability
+        }
