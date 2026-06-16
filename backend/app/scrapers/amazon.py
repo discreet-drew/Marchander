@@ -1,5 +1,5 @@
 import re
-
+import html
 from playwright.sync_api import sync_playwright #type: ignore
 
 
@@ -30,6 +30,13 @@ def scrape_amazon(url):
         page.wait_for_timeout(3000)
 
         html = page.content()
+
+        with open(
+            "amazon_debug.html",
+            "w",
+            encoding="utf-8")  as f:
+
+            f.write(html)
 
         browser.close()
 

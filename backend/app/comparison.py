@@ -3,49 +3,41 @@ def compare_prices(
     amazon=None
 ):
 
-    valid_prices = []
-
     if (
         flipkart and
         flipkart.get("price")
     ):
-        valid_prices.append(
-            (
-                "Flipkart",
-                int(
-                    str(
-                        flipkart["price"]
-                    ).replace(",", "")
-                )
-            )
-        )
+
+        return {
+
+            "flipkart": flipkart,
+
+            "amazon": amazon,
+
+            "best_store":
+            "Flipkart",
+
+            "lowest_price":
+            flipkart["price"]
+        }
 
     if (
         amazon and
         amazon.get("price")
     ):
-        valid_prices.append(
-            (
-                "Amazon",
-                int(
-                    str(
-                        amazon["price"]
-                    ).replace(",", "")
-                )
-            )
-        )
-
-    if not valid_prices:
 
         return {
-            "message":
-            "Product unavailable on all stores"
-        }
 
-    best_store, lowest_price = min(
-        valid_prices,
-        key=lambda x: x[1]
-    )
+            "flipkart": flipkart,
+
+            "amazon": amazon,
+
+            "best_store":
+            "Amazon",
+
+            "lowest_price":
+            amazon["price"]
+        }
 
     return {
 
@@ -53,9 +45,9 @@ def compare_prices(
 
         "amazon": amazon,
 
-        "lowest_price":
-        lowest_price,
-
         "best_store":
-        best_store
+        "Unavailable",
+
+        "lowest_price":
+        None
     }

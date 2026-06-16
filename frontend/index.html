@@ -2,12 +2,11 @@
 <html>
 <head>
 
-    <meta charset="UTF-8">
-    <title>Marchander</title>
+<meta charset="UTF-8">
 
-    <link
-        rel="stylesheet"
-        href="style.css">
+<title>Marchander</title>
+
+<link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -15,23 +14,31 @@
 
 <div class="container">
 
-    <h1>Marchander</h1>
+    <div class="hero">
 
-    <p>
-        Compare product prices
-    </p>
+        <h1>🛒 Marchander</h1>
 
-    <input
-        id="query"
-        type="text"
-        placeholder="Search Product">
+        <p>
+            Compare prices across stores instantly
+        </p>
 
-    <button
-        onclick="searchProduct()">
+        <div class="search-box">
 
-        Search
+            <input
+                id="query"
+                type="text"
+                placeholder="Search for a product...">
 
-    </button>
+            <button
+                onclick="searchProduct()">
+
+                Search
+
+            </button>
+
+        </div>
+
+    </div>
 
     <div id="loading"></div>
 

@@ -10,6 +10,7 @@ from app.scrapers.amazon import scrape_amazon
 from app.scrapers.amazon_search import search_amazon
 
 from app.comparison import compare_prices
+from app import comparison
 
 app = Flask(__name__)
 
@@ -75,6 +76,10 @@ def search():
         except Exception:
             comparison = None
 
+        print("Flipkart Product:", flipkart_product)
+        print("Amazon Product:", amazon_product)
+        print("Comparison:", comparison)
+
         return jsonify({
             "flipkart": flipkart_product,
             "amazon": amazon_product,
@@ -98,3 +103,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
 
         pass 
+    print("FINAL RESPONSE:", comparison)

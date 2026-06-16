@@ -1,23 +1,11 @@
-from app.comparison import (
-    compare_prices
-)
+from app.comparison import compare_prices
 
-flipkart = {
-
-    "store":"Flipkart",
-
-    "price":59900
-}
+flipkart = None
 
 amazon = {
-
-    "store":"Amazon",
-
-    "price":64900
+    "price": 58999
 }
-
 print(
-
     compare_prices(
         flipkart,
         amazon
