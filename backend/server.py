@@ -10,7 +10,6 @@ from app.scrapers.amazon import scrape_amazon
 from app.scrapers.amazon_search import search_amazon
 
 from app.comparison import compare_prices
-from app import comparison
 
 app = Flask(__name__)
 
@@ -80,11 +79,9 @@ def search():
         print("Amazon Product:", amazon_product)
         print("Comparison:", comparison)
 
-        return jsonify({
-            "flipkart": flipkart_product,
-            "amazon": amazon_product,
-            "comparison": comparison,
-        })
+        return jsonify(comparison)
+    
+
     except Exception as e:
         print("Search Error:", e)
         return jsonify({"error": "Search failed"}), 500
@@ -95,12 +92,3 @@ if __name__ == "__main__":
         debug=True,
         port=5000
     )
-
-    try:
-
-        loop = asyncio.get_event_loop()
-        loop.run_forever()
-    except KeyboardInterrupt:
-
-        pass 
-    print("FINAL RESPONSE:", comparison)
