@@ -1,9 +1,13 @@
-from app.scrapers.amazon import scrape_amazon
+# test_amazon.py
 
-url = (
-    "https://www.amazon.in/dp/B0CHX1W1XY"
+from app.scrapers.Electronics.amazon import (
+    scrape_amazon
 )
 
-result = scrape_amazon(url)
+url = "https://www.amazon.in/Apple-iPhone-17e-256-GB/dp/B0GQVL6STN"
+
+result = scrape_amazon(
+    url
+)
 
 print(result)

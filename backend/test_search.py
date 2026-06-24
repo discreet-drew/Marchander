@@ -1,6 +1,6 @@
 import asyncio
 
-from app.scrapers.flipkart_search import (
+from app.scrapers.Electronics.flipkart_search import (
     search_flipkart
 )
 

@@ -3,11 +3,11 @@ from flask_cors import CORS
 
 import asyncio
 
-from app.scrapers.flipkart import scrape_flipkart
-from app.scrapers.flipkart_search import search_flipkart
+from app.scrapers.Electronics.flipkart import scrape_flipkart
+from app.scrapers.Electronics.flipkart_search import search_flipkart
 
-from app.scrapers.amazon import scrape_amazon
-from app.scrapers.amazon_search import search_amazon
+from app.scrapers.Electronics.amazon import scrape_amazon
+from app.scrapers.Electronics.amazon_search import search_amazon
 
 from app.comparison import compare_prices
 

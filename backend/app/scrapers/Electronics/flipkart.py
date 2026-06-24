@@ -69,13 +69,16 @@ def scrape_flipkart(url):
         )
 
         return {
-            "store": "Flipkart",
 
-            "title": title,
+    "store":"Flipkart",
 
-            "price": price,
+    "title": item["name"],
 
-            "currency": "INR",
+    "price":
+    item["offers"]["price"],
 
-            "availability": availability
-        }
+    "currency":
+    item["offers"]["priceCurrency"],
+
+    "url": url
+}

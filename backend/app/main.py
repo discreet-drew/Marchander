@@ -10,7 +10,7 @@ from app.schemas import (
     SearchRequest
 )
 
-from app.scrapers.flipkart import (
+from app.scrapers.Electronics.flipkart import (
     scrape_flipkart
 )
 
@@ -23,7 +23,7 @@ if sys.platform.startswith("win"):
         asyncio.WindowsProactorEventLoopPolicy()
     )
 
-from app.scrapers.flipkart_search import (
+from app.scrapers.Electronics.flipkart_search import (
     search_flipkart
 )
 

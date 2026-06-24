@@ -186,3 +186,51 @@ body{
 
     margin-top:10px;
 }
+
+.buy-btn {
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:10px 20px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:10px;
+}
+
+.buy-btn:hover {
+
+    background:#1d4ed8;
+}
+
+.savings {
+
+    margin-top:15px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    color:#16a34a;
+}
+
+.best-price {
+
+    background:#fff7ed;
+
+    border:2px solid gold;
+
+    padding:30px;
+
+    margin-bottom:30px;
+
+    border-radius:15px;
+
+    text-align:center;
+}

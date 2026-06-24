@@ -42,16 +42,6 @@ async function searchProduct() {
 
         console.log(data);
 
-        console.log(
-            "Best Store:",
-            data.best_store
-        );
-
-        console.log(
-            "Lowest Price:",
-            data.lowest_price
-        );
-
         document
             .getElementById(
                 "loading"
@@ -77,16 +67,6 @@ async function searchProduct() {
 
                     </div>
 
-                    <p>
-
-                        ${
-                            data.flipkart
-                            ? "✅ Product Found"
-                            : "❌ Product Not Found"
-                        }
-
-                    </p>
-
                 </div>
 
                 <div class="card">
@@ -98,16 +78,6 @@ async function searchProduct() {
                         ₹${data.amazon?.price || "N/A"}
 
                     </div>
-
-                    <p>
-
-                        ${
-                            data.amazon
-                            ? "✅ Product Found"
-                            : "❌ Product Not Found"
-                        }
-
-                    </p>
 
                 </div>
 
@@ -129,12 +99,20 @@ async function searchProduct() {
 
                 <div class="winner">
 
+                    ${data.best_store || "Unavailable"}
+
+                </div>
+
+                <div class="price">
+
                     ${
-                        data.best_store ||
-                        "Unavailable"
+                        data.lowest_price
+                        ? `₹${data.lowest_price}`
+                        : "N/A"
                     }
 
                 </div>
+
             </div>
             `;
 
