@@ -40,6 +40,11 @@ async function searchProduct() {
         const data =
             await response.json();
 
+        const historyResponse = await fetch
+        (
+        `http://127.0.0.1:5000/history/${query}`
+        );
+        const analytics = await historyResponse.json();
         console.log(data);
 
         document
@@ -116,9 +121,106 @@ async function searchProduct() {
             </div>
             `;
 
-    }
+         document.getElementById(
 
-    catch(error){
+            "stats"
+
+            ).innerHTML =
+
+            `
+
+            <div class="stat-card">
+
+            <h3>Current</h3>
+
+            <p>₹${analytics.current_price}</p>
+
+            </div>
+
+            <div class="stat-card">
+
+            <h3>Lowest</h3>
+
+            <p>₹${analytics.lowest_price}</p>
+
+            </div>
+
+            <div class="stat-card">
+
+            <h3>Highest</h3>
+
+            <p>₹${analytics.highest_price}</p>
+
+            </div>
+
+            <div class="stat-card">
+
+            <h3>Average</h3>
+
+            <p>₹${analytics.average_price}</p>
+
+            </div>
+
+            `;
+
+        const labels = analytics.history.map(
+
+        item=>item.date
+
+        );
+
+        const prices = analytics.history.map(
+
+        item=>item.price
+
+        );
+
+        const ctx = document
+
+        .getElementById(
+
+        "priceChart"
+
+        )
+
+        .getContext("2d");
+
+        new Chart(
+
+        ctx,
+
+        {
+
+        type:"line",
+
+        data:{
+
+        labels,
+
+        datasets:[
+
+        {
+
+        label:"Price",
+
+        data:prices,
+
+        fill:false,
+
+        tension:0.4
+
+        }
+
+        ]
+
+        }
+
+        }
+
+     ); 
+    }   
+
+catch(error){
 
         console.error(error);
 
