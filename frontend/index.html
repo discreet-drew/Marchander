@@ -1,87 +1,315 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Marchander</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+    <title>Marchander | AI Price Intelligence</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="style.css">
 
 </head>
 
 <body>
 
-<div class="container">
+<nav>
 
-    <div class="tabs">
+    <div class="logo">
 
-    <button onclick="showElectronics()">
+         Marchander
 
-        Electronics
+    </div>
 
-    </button>
+    <ul>
 
-    <button onclick="showFashion()">
+        <li onclick="showElectronics()">
 
-        Fashion
+            Electronics
 
-    </button>
+        </li>
 
-</div>
+        <li onclick="showFashion()">
 
-<div class="hero">
+            Fashion
+
+        </li>
+
+        <li>
+
+            AI Recommendations
+
+        </li>
+
+        <li>
+
+            Price Alerts
+
+        </li>
+
+    </ul>
+
+</nav>
+
+<section class="hero">
 
     <h1>
 
-         Marchander
+        AI Powered Price Intelligence
 
     </h1>
 
     <p>
 
-        Compare Prices.
-        Save More.
+        Compare prices across multiple online stores,
+        discover the cheapest deal,
+        track price history,
+        and save money using AI.
 
     </p>
-</div>
 
-    <div id="achievement">
+    <div class="search-box">
+
+        <input
+
+            id="query"
+
+            type="text"
+
+            placeholder="Search iPhone 15, PS5, AirPods..."
+
+            autocomplete="off"
+
+            onkeyup="showSuggestions()"
+
+        >
+
+        <button onclick="searchProduct()">
+
+            Search
+
+        </button>
 
     </div>
+
+    <div id="suggestions">
+
+    </div>
+
+    <div class="trending">
+
+        Trending:
+
+        <span onclick="fillSearch('iPhone 15')">
+
+            iPhone 15
+
+        </span>
+
+        <span onclick="fillSearch('Samsung Galaxy S25')">
+
+            Samsung S25
+
+        </span>
+
+        <span onclick="fillSearch('PlayStation 5')">
+
+            PS5
+
+        </span>
+
+        <span onclick="fillSearch('AirPods Pro')">
+
+            AirPods
+
+        </span>
+
+    </div>
+
+</section>
+
+<div id="loading">
+
+</div>
+
+<section id="bestDealSection">
 
     <div id="best-deal">
 
     </div>
 
-    <div id="history">
+</section>
+
+<section id="result">
+
+</section>
+
+<section id="savingSection">
+
+    <div id="savingsCard">
 
     </div>
 
-    <div class="stores">
+</section>
+
+<section class="analytics">
+
+    <h2>
+
+        Price Analytics
+
+    </h2>
+
+    <div id="stats">
 
     </div>
 
-    <div id="loading"></div>
+    <canvas id="priceChart">
 
-    <div id="result"></div>
+    </canvas>
 
-    <div class="analytics">
+</section>
 
-    <h2>Price Analytics</h2>
+<section>
 
-    <div id="stats"></div>
+    <h2>
 
-    <canvas id="priceChart"></canvas>
+        AI Recommendations
 
-</div>
+    </h2>
 
-</div>
+    <div
 
+        class="recommendations"
 
-<script src="script.js"></script>
+        id="recommendations"
+
+    >
+
+        <div class="recommendation-card">
+
+            Search for a product to receive recommendations.
+
+        </div>
+
+    </div>
+
+</section>
+
+<section>
+
+    <h2>
+
+         Price Alert
+
+    </h2>
+
+    <div class="alert-card">
+
+        <input
+
+            id="email"
+
+            type="email"
+
+            placeholder="Email Address"
+
+        >
+
+        <input
+
+            id="targetPrice"
+
+            type="number"
+
+            placeholder="Notify Below Price"
+
+        >
+
+        <button onclick="createAlert()">
+
+            Create Alert
+
+        </button>
+
+    </div>
+
+</section>
+
+<section>
+
+    <h2>
+
+        Deal Summary
+
+    </h2>
+
+    <div id="achievement">
+
+        <div class="achievement-card">
+
+            Search a product to discover your savings.
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <h3>
+
+        Marchander
+
+    </h3>
+
+    <p>
+
+        AI Powered Multi-Store Price Intelligence Platform
+
+    </p>
+
+    <div class="footer-tech">
+
+        <span>Python</span>
+
+        <span>Flask</span>
+
+        <span>Playwright</span>
+
+        <span>PostgreSQL</span>
+
+        <span>Sentence Transformers</span>
+
+        <span>Chart.js</span>
+
+    </div>
+
+    <p class="copyright">
+
+        © 2026 Marchander • Built by discreet-drew
+
+    </p>
+
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="script.js"></script>
 
 </body>

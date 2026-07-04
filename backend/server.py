@@ -21,7 +21,7 @@ from app.comparison import compare_prices
 
 app = Flask(__name__)
 
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 @app.route("/")
@@ -31,35 +31,22 @@ def home():
         "message": "Marchander Running"
     }
 
-
-@app.route(
-    "/search",
-    methods=["POST"]
-)
-
-@app.route(
-
-    "/history/<product>",
-
-    methods=["GET"]
-
-)
-
 @app.route("/recommend")
 def recommend():
-
+    print(request.args)
     query = request.args.get("query")
+    print("Query =", query)
+
+    if not query:
+        return jsonify({
+            "error":"Missing query parameter"
+        }),400
 
     recommendations = suggest_products(query)
+    return jsonify(recommendations)
 
-    return jsonify([
-        {
-            "product": product,
-            "score": round(score, 4)
-        }
-        for product, score in recommendations
-    ])
 
+@app.route("/history/<product>", methods=["GET"])
 def history(product):
 
     analytics = get_product_analytics(
@@ -120,13 +107,40 @@ def history(product):
 
     )
 
+
+POPULAR_PRODUCTS = [
+    "Apple iPhone 15",
+    "Apple iPhone 16",
+    "Samsung Galaxy S25",
+    "OnePlus 13",
+    "Nothing Phone 3",
+    "AirPods Pro",
+    "PlayStation 5"
+]
+
+@app.route("/suggest")
+def suggest():
+
+    query = request.args.get("q","").lower()
+
+    results = [
+        p
+        for p in POPULAR_PRODUCTS
+        if query in p.lower()
+    ]
+
+    return jsonify(results[:5])
+
+@app.route("/search", methods=["POST"])
 def search():
     try:
         data = request.get_json()
-        query = data["query"]
-        print(f"\nSearching: {query}")
+        if not data:
+            return jsonify({"error": "No JSON received"}), 400
+        query = data.get("query")
+        if not query:
+            return jsonify({"error": "Query missing"}), 400
 
-        # Flipkart
         flipkart_product = None
         try:
             flipkart_url = asyncio.run(search_flipkart(query))
@@ -156,7 +170,7 @@ def search():
                 "availability": "Unavailable",
             }
 
-        # Amazon
+        
         amazon_product = None
         try:
             amazon_url = asyncio.run(search_amazon(query))
@@ -187,7 +201,7 @@ def search():
                 "availability": "Unavailable",
             }
 
-        # Comparison
+
         comparison = None
         try:
             comparison = compare_prices(flipkart_product, amazon_product)
@@ -200,38 +214,6 @@ def search():
 
         return jsonify(comparison)
     
-
-        saved = None
-
-        if (
-
-        flipkart_product
-
-        and
-
-        amazon_product
-
-        ):
-
-            if (
-
-                flipkart_product["price"]
-
-                <
-
-                amazon_product["price"]
-
-            ):
-
-                saved = (
-
-                    amazon_product["price"]
-
-                    -
-
-                    flipkart_product["price"]
-
-            )
 
     except Exception as e:
         print("Search Error:", e)

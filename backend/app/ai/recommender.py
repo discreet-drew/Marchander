@@ -11,7 +11,12 @@ embeddings = model.encode(
     POPULAR_PRODUCTS,
     convert_to_tensor=True
 )
+
 def suggest_products(query):
+
+    if not query:
+
+        return []
 
     query_embedding = model.encode(
 
