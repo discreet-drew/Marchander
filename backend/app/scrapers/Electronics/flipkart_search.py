@@ -6,7 +6,9 @@ def _sync_search_flipkart(query: str):
     url = "https://www.flipkart.com/search?q=" + query.replace(" ", "+")
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
+        
+        
         page = browser.new_page()
         page.goto(url, wait_until="domcontentloaded")
         page.wait_for_timeout(5000)

@@ -147,6 +147,8 @@ def search():
             print("Flipkart URL:", flipkart_url)
             if flipkart_url:
                 flipkart_product = scrape_flipkart(flipkart_url)
+                print("Flipkart Product:")
+                print(flipkart_product)
 
             if ( flipkart_product and flipkart_product["price"]):
 
@@ -212,6 +214,7 @@ def search():
         print("Amazon Product:", amazon_product)
         print("Comparison:", comparison)
 
+        print(comparison)
         return jsonify(comparison)
     
 

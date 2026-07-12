@@ -8,7 +8,7 @@ def scrape_flipkart(url):
     with sync_playwright() as p:
 
         browser = p.chromium.launch(
-            headless=False
+            headless=True
         )
 
         page = browser.new_page()
@@ -68,17 +68,17 @@ def scrape_flipkart(url):
             "Out of Stock"
         )
 
-        return {
+    return {
 
-    "store":"Flipkart",
+        "store":"Flipkart",
 
-    "title": item["name"],
+        "title": item["name"],
 
-    "price":
-    item["offers"]["price"],
+        "price":
+        item["offers"]["price"],
 
-    "currency":
-    item["offers"]["priceCurrency"],
+        "currency":
+        item["offers"]["priceCurrency"],
 
-    "url": url
-}
+        "url": url
+    }
